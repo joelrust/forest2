@@ -96,6 +96,8 @@ async function setup() {
     // Skip if you're not using guardrails.js
     if (typeof guardrails === "function")
         guardrails();
+
+    return device;
 }
 
 function loadRNBOScript(version) {
@@ -129,7 +131,7 @@ function makeSliders(device) {
         // or not is to exclude parameters with a '/' in them.
         // You can uncomment the following line if you don't want to include subpatcher params
         
-        //if (param.id.includes("/")) return;
+        if (param.id.includes("/")) return;
 
         // Create a label, an input slider and a value display
         let label = document.createElement("label");
@@ -336,4 +338,5 @@ function makeMIDIKeyboard(device) {
     });
 }
 
-setup();
+// NOTE(ryaan): we're going to call this manually later so that we can await it.
+// setup();

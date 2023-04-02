@@ -7,6 +7,8 @@
     <meta name="rnbo-version" content="1.0.0-alpha.5">
     <link rel="stylesheet" href="style/style.css">
     <title>RNBO Web Export</title>
+    <script type="text/javascript" src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"></script>
+
 </head>
 
 <body>
@@ -61,5 +63,37 @@
     <!-- Import RNBO Engine Wrapper -->
     <!-- Make sure to include the RNBO engine version to the version of your exported code, found in rnbopackage.json -->
     <script type="text/javascript" src="js/app.js"></script>
+
+    <script type="module">
+	const device = await RNBO.createDevice({ audioContext, patcher });
+
+
+      //  const timeParam = device.parametersById.get("time");
+      //  timeParam.value = 200; // TODO: ask JS for the current wallclock time
+//	console.log("The time is: ", timeParam.value);
+
+const { TimeNow, MessageEvent } = require("@rnbo/js");
+
+// Sends the number 74 to the first inlet
+// All inlets have a tag with the form "in$", where $ is the index of the inlet (starting at 1)
+const event1 = new MessageEvent(TimeNow, "in1", [ "74 75 77" ]);
+device.scheduleEvent(event1);
+
+// Sends the number 75 to an inport labeled "in2"
+const event2 = new MessageEvent(TimeNow, "in2", [ "41 43 45"]);
+device.scheduleEvent(event2);
+
+// Sends the number 75 to an inport labeled "in2"
+const event3 = new MessageEvent(TimeNow, "in3", [ "40 60 1.5 4 80 100 80 100 0 20 1 2 50 80" ]);
+device.scheduleEvent(event3);
+
+const event4 = new MessageEvent(TimeNow, "in4", [ "1 1" ]);
+device.scheduleEvent(event4);
+
+
+
+	</script>
+
+
 </body>
 </html>
